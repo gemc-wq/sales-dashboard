@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const COLORS = { UK: '#7c3aed', US: '#2563eb', chart: ['#3b82f6', '#06b6d4', '#f59e0b', '#f97316', '#8b5cf6', '#ec4899', '#0ea5e9', '#a855f7'] };
+const COLORS = { UK: '#06b6d4', US: '#2563eb', chart: ['#3b82f6', '#06b6d4', '#f59e0b', '#f97316', '#8b5cf6', '#ec4899', '#0ea5e9', '#a855f7'] };
 
 // Fallback data for local development
 const fallbackData = {
@@ -200,8 +200,8 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
                 <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
               </svg>
             </button>
-            <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-              <span className="w-2 h-2 bg-purple-500 rounded-full"></span> UK
+            <div className="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+              <span className="w-2 h-2 bg-cyan-500 rounded-full"></span> UK
             </div>
             <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
               <span className="w-2 h-2 bg-blue-500 rounded-full"></span> US
@@ -347,8 +347,8 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
               </BarChart>
             </ResponsiveContainer>
             <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-purple-50 rounded-lg p-3">
-                <p className="font-semibold text-purple-800">UK Top: HTPCR (2,050), HLBWH (1,301), HC (704)</p>
+              <div className="bg-cyan-50 rounded-lg p-3">
+                <p className="font-semibold text-cyan-800">UK Top: HTPCR (2,050), HLBWH (1,301), HC (704)</p>
               </div>
               <div className="bg-blue-50 rounded-lg p-3">
                 <p className="font-semibold text-blue-800">US Top: HTPCR (4,372), HC (1,028), HLBWH (1,000)</p>
@@ -373,8 +373,8 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
               </BarChart>
             </ResponsiveContainer>
             <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-purple-50 rounded-lg p-3">
-                <p className="font-semibold text-purple-800">UK Strongest: IPH14 (292), IPH13 (265), IPH16 (240), IPH15 (238)</p>
+              <div className="bg-cyan-50 rounded-lg p-3">
+                <p className="font-semibold text-cyan-800">UK Strongest: IPH14 (292), IPH13 (265), IPH16 (240), IPH15 (238)</p>
               </div>
               <div className="bg-blue-50 rounded-lg p-3">
                 <p className="font-semibold text-blue-800">US Strongest: IPH17PMAX (528), IPH16 (416), IPH17 (381), IPH15 (372)</p>
@@ -415,9 +415,9 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
               </ResponsiveContainer>
             </div>
             <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-              <div className="bg-purple-50 rounded-lg p-4">
-                <h4 className="font-semibold text-purple-800 mb-2">🇬🇧 UK Top Designs</h4>
-                <ul className="text-sm text-purple-700 space-y-1">
+              <div className="bg-cyan-50 rounded-lg p-4">
+                <h4 className="font-semibold text-cyan-800 mb-2">🇬🇧 UK Top Designs</h4>
+                <ul className="text-sm text-cyan-700 space-y-1">
                   <li>• LFCKIT25 (283) - Liverpool FC Kit</li>
                   <li>• AFCKIT25 (156) - Arsenal FC Kit</li>
                   <li>• NCFCCKT-HOM (114) - Newcastle FC</li>
@@ -449,7 +449,7 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
                 </div>
                 <button
                   onClick={() => exportToCSV(data.top_skus_uk || fallbackData.top_skus_uk, 'uk_top_skus', ['rank', 'sku', 'units', 'sales'])}
-                  className="flex items-center gap-1 px-3 py-1.5 text-sm text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
+                  className="flex items-center gap-1 px-3 py-1.5 text-sm text-cyan-600 hover:bg-cyan-50 rounded-lg transition-colors"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -463,21 +463,21 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
                     <tr className="border-b border-gray-200">
                       <th className="text-left py-3 px-2 font-semibold text-gray-600">#</th>
                       <th className="text-left py-3 px-2 font-semibold text-gray-600">SKU</th>
-                      <th className="text-right py-3 px-2 font-semibold text-purple-600">Units</th>
-                      <th className="text-right py-3 px-2 font-semibold text-purple-600">Sales</th>
+                      <th className="text-right py-3 px-2 font-semibold text-cyan-600">Units</th>
+                      <th className="text-right py-3 px-2 font-semibold text-cyan-600">Sales</th>
                     </tr>
                   </thead>
                   <tbody>
                     {(data.top_skus_uk || fallbackData.top_skus_uk).slice(0, displayLimit).map((item) => (
-                      <tr key={item.sku} className="border-b border-gray-100 hover:bg-purple-50">
+                      <tr key={item.sku} className="border-b border-gray-100 hover:bg-cyan-50">
                         <td className="py-2 px-2">
-                          <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${item.rank <= 3 ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-600'}`}>
+                          <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${item.rank <= 3 ? 'bg-cyan-100 text-cyan-800' : 'bg-gray-100 text-gray-600'}`}>
                             {item.rank}
                           </span>
                         </td>
                         <td className="py-2 px-2 font-mono text-xs">{item.sku}</td>
-                        <td className="py-2 px-2 text-right font-semibold text-purple-600">{formatNumber(item.units)}</td>
-                        <td className="py-2 px-2 text-right font-semibold text-purple-700">£{formatNumber(item.sales)}</td>
+                        <td className="py-2 px-2 text-right font-semibold text-cyan-600">{formatNumber(item.units)}</td>
+                        <td className="py-2 px-2 text-right font-semibold text-cyan-700">£{formatNumber(item.sales)}</td>
                       </tr>
                     ))}
                   </tbody>

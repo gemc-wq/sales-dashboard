@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const COLORS = { UK: '#7c3aed', US: '#2563eb', chart: ['#3b82f6', '#06b6d4', '#f59e0b', '#f97316', '#8b5cf6', '#ec4899', '#0ea5e9', '#a855f7'] };
+const COLORS = { UK: '#06b6d4', US: '#2563eb', chart: ['#3b82f6', '#06b6d4', '#f59e0b', '#f97316', '#8b5cf6', '#ec4899', '#0ea5e9', '#a855f7'] };
 
 const PHONE_CASE_TYPES = ['HC', 'HTPCR', 'HB401', 'HLBWH', 'HB6CR', 'HB7BK', 'HHYBK', 'FHTPCR', 'FHC'];
 
@@ -99,9 +99,9 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const LoadingSpinner = () => (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-cyan-50 to-indigo-50">
         <div className="text-center">
-            <div className="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <div className="w-12 h-12 border-4 border-cyan-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
             <p className="text-gray-600">Loading phone case data...</p>
         </div>
     </div>
@@ -138,7 +138,7 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
     }));
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 to-indigo-50 p-6">
+        <div className="min-h-screen bg-gradient-to-br from-cyan-50 to-indigo-50 p-6">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="mb-8 flex justify-between items-start">
@@ -153,8 +153,8 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                         </p>
                     </div>
                     <div className="flex gap-2">
-                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                            <span className="w-2 h-2 bg-purple-500 rounded-full"></span> UK
+                        <div className="bg-cyan-100 text-cyan-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                            <span className="w-2 h-2 bg-cyan-500 rounded-full"></span> UK
                         </div>
                         <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                             <span className="w-2 h-2 bg-blue-500 rounded-full"></span> US
@@ -178,7 +178,7 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${activeTab === tab.id ? 'bg-purple-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'
+                            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${activeTab === tab.id ? 'bg-cyan-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'
                                 }`}
                         >
                             {tab.label}
@@ -283,8 +283,8 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                                             <p className="font-bold text-gray-800">{formatNumber(item.total)}</p>
                                             <p className="text-xs text-gray-400">Total</p>
                                         </div>
-                                        <div className="bg-purple-50 rounded p-2">
-                                            <p className="font-bold text-purple-600">{formatNumber(item.UK)}</p>
+                                        <div className="bg-cyan-50 rounded p-2">
+                                            <p className="font-bold text-cyan-600">{formatNumber(item.UK)}</p>
                                             <p className="text-xs text-gray-400">UK</p>
                                         </div>
                                         <div className="bg-blue-50 rounded p-2">
@@ -314,8 +314,8 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                             </BarChart>
                         </ResponsiveContainer>
                         <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                            <div className="bg-purple-50 rounded-lg p-3">
-                                <p className="font-semibold text-purple-800">🇬🇧 UK Top: IPH14 (292), IPH13 (265), IPH16 (240)</p>
+                            <div className="bg-cyan-50 rounded-lg p-3">
+                                <p className="font-semibold text-cyan-800">🇬🇧 UK Top: IPH14 (292), IPH13 (265), IPH16 (240)</p>
                             </div>
                             <div className="bg-blue-50 rounded-lg p-3">
                                 <p className="font-semibold text-blue-800">🇺🇸 US Top: IPH17PMAX (528), IPH16 (416), IPH17 (381)</p>
@@ -340,9 +340,9 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                             </BarChart>
                         </ResponsiveContainer>
                         <div className="mt-4 grid grid-cols-2 gap-4">
-                            <div className="bg-purple-50 rounded-lg p-4">
-                                <h4 className="font-semibold text-purple-800 mb-2">🇬🇧 UK Bestsellers</h4>
-                                <ul className="text-sm text-purple-700 space-y-1">
+                            <div className="bg-cyan-50 rounded-lg p-4">
+                                <h4 className="font-semibold text-cyan-800 mb-2">🇬🇧 UK Bestsellers</h4>
+                                <ul className="text-sm text-cyan-700 space-y-1">
                                     <li>• LFCKIT25 (283) - Liverpool FC Kit</li>
                                     <li>• AFCKIT25 (156) - Arsenal FC Kit</li>
                                     <li>• PNUTSNF (84) - Peanuts Snoopy</li>
@@ -370,7 +370,7 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                                     <tr className="border-b border-gray-200">
                                         <th className="text-left py-3 px-4 font-semibold text-gray-600">Rank</th>
                                         <th className="text-left py-3 px-4 font-semibold text-gray-600">SKU</th>
-                                        <th className="text-right py-3 px-4 font-semibold text-purple-600">UK</th>
+                                        <th className="text-right py-3 px-4 font-semibold text-cyan-600">UK</th>
                                         <th className="text-right py-3 px-4 font-semibold text-blue-600">US</th>
                                         <th className="text-right py-3 px-4 font-semibold text-gray-800">Total</th>
                                     </tr>
@@ -385,7 +385,7 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                                                 </span>
                                             </td>
                                             <td className="py-3 px-4 font-mono text-xs">{sku.sku}</td>
-                                            <td className="py-3 px-4 text-right font-semibold text-purple-600">{formatNumber(sku.UK)}</td>
+                                            <td className="py-3 px-4 text-right font-semibold text-cyan-600">{formatNumber(sku.UK)}</td>
                                             <td className="py-3 px-4 text-right font-semibold text-blue-600">{formatNumber(sku.US)}</td>
                                             <td className="py-3 px-4 text-right font-bold text-gray-800">{formatNumber(sku.total)}</td>
                                         </tr>
