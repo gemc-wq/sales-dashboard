@@ -72,6 +72,30 @@ const fallbackData = {
     { design_child: "LFCKIT25-LHOM", UK: 93, US: 1, total: 94 },
     { design_child: "HPOTGRA-MAR", UK: 9, US: 84, total: 93 },
     { design_child: "AFCKIT25-HOM", UK: 58, US: 34, total: 92 }
+  ],
+  top_skus_uk: [
+    { rank: 1, sku: "HC-IPH14-LFCKIT25-HOM", units: 141, sales: 2820 },
+    { rank: 2, sku: "HLBWH-IPH13-NCFCCKT-HOM", units: 114, sales: 2508 },
+    { rank: 3, sku: "HC-IPH15-LFCKIT25-LHOM", units: 93, sales: 1860 },
+    { rank: 4, sku: "HTPCR-IPH16-PNUTSNF-CLA", units: 84, sales: 1848 },
+    { rank: 5, sku: "HTPCR-IPH14-HPOTDH37-HOP", units: 76, sales: 1672 },
+    { rank: 6, sku: "HC-IPH12-AFCKIT25-HOM", units: 58, sales: 1160 },
+    { rank: 7, sku: "HLBWH-IPH11-PNUTHAL", units: 47, sales: 1034 },
+    { rank: 8, sku: "HTPCR-IPH16-PNUTBOA-XOX", units: 39, sales: 858 },
+    { rank: 9, sku: "HTPCR-S938U-HPOTPRI2", units: 36, sales: 792 },
+    { rank: 10, sku: "HTPCR-IPH15-HPOTGRA-MAR", units: 31, sales: 682 }
+  ],
+  top_skus_us: [
+    { rank: 1, sku: "HTPCR-IPH17PMAX-NARUICO-AKA", units: 361, sales: 7942 },
+    { rank: 2, sku: "HTPCR-IPH16-PNUTSNF-CLA", units: 258, sales: 5676 },
+    { rank: 3, sku: "HTPCR-IPH17-PNUTBOA-XOX", units: 247, sales: 5434 },
+    { rank: 4, sku: "HTPCR-IPH17PRO-DRGBSUSC-GOK", units: 243, sales: 5346 },
+    { rank: 5, sku: "HTPCR-IPH16PMAX-PNUTHAL", units: 233, sales: 5126 },
+    { rank: 6, sku: "HTPCR-IPHSE4-HPOTGRA-MAR", units: 228, sales: 5016 },
+    { rank: 7, sku: "HTPCR-IPH15-PNUTCHA-SNO", units: 221, sales: 4862 },
+    { rank: 8, sku: "HTPCR-IPH17-NARUCHA", units: 196, sales: 4312 },
+    { rank: 9, sku: "HC-IPH14-HATSGRA", units: 170, sales: 3740 },
+    { rank: 10, sku: "HTPCR-IPH16-FCBCKT8-AWY", units: 151, sales: 3322 }
   ]
 };
 
@@ -111,9 +135,31 @@ const LoadingSpinner = () => (
   </div>
 );
 
+// CSV Export utility
+const exportToCSV = (data, filename, headers) => {
+  const csvRows = [headers.join(',')];
+  data.forEach(row => {
+    const values = headers.map(h => {
+      const key = h.toLowerCase().replace(/ /g, '_');
+      const val = row[key] ?? row[h] ?? row[Object.keys(row).find(k => k.toLowerCase() === h.toLowerCase())] ?? '';
+      return typeof val === 'string' && val.includes(',') ? `"${val}"` : val;
+    });
+    csvRows.push(values.join(','));
+  });
+  const blob = new Blob([csvRows.join('\n')], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${filename}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+};
+
 export default function SalesDashboard({ customData, dateRange = 'January 2026' }) {
   const [data, setData] = useState(customData || fallbackData);
   const [activeTab, setActiveTab] = useState('overview');
+  const [displayLimit, setDisplayLimit] = useState(10);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     // Use customData if provided, otherwise use fallback
@@ -126,7 +172,8 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
     { id: 'overview', label: 'Overview' },
     { id: 'products', label: 'Product Types' },
     { id: 'devices', label: 'Devices' },
-    { id: 'designs', label: 'Designs' }
+    { id: 'designs', label: 'Designs' },
+    { id: 'skus', label: 'Top SKUs' }
   ];
 
   const pieData = [
@@ -143,7 +190,16 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
             <h1 className="text-3xl font-bold text-gray-900">UK & US Sales Dashboard</h1>
             <p className="text-gray-500 mt-1">{dateRange} Performance Comparison</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
+            <button
+              onClick={() => setShowSettings(!showSettings)}
+              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              title="Settings"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd" />
+              </svg>
+            </button>
             <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
               <span className="w-2 h-2 bg-purple-500 rounded-full"></span> UK
             </div>
@@ -152,6 +208,35 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
             </div>
           </div>
         </div>
+
+        {/* Settings Modal */}
+        {showSettings && (
+          <div className="mb-6 bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+            <div className="flex justify-between items-center mb-3">
+              <h3 className="font-semibold text-gray-800">Display Settings</h3>
+              <button onClick={() => setShowSettings(false)} className="text-gray-400 hover:text-gray-600">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex items-center gap-4">
+              <label className="text-sm text-gray-600">Items per table:</label>
+              <select
+                value={displayLimit}
+                onChange={(e) => setDisplayLimit(Number(e.target.value))}
+                className="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+                <option value={20}>20</option>
+                <option value={25}>25</option>
+              </select>
+              <p className="text-xs text-gray-400">Applies to all tables and charts</p>
+            </div>
+          </div>
+        )}
 
         {/* Summary Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
@@ -347,6 +432,107 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
                   <li>• PNUTBOA (247) - Peanuts Boardwalk</li>
                   <li>• DRGBSUSC (243) - Dragon Ball</li>
                 </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Top SKUs Tab */}
+        {activeTab === 'skus' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* UK Top SKUs Table */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🇬🇧</span>
+                  <h3 className="text-lg font-semibold text-gray-800">UK Top SKUs</h3>
+                </div>
+                <button
+                  onClick={() => exportToCSV(data.top_skus_uk || fallbackData.top_skus_uk, 'uk_top_skus', ['rank', 'sku', 'units', 'sales'])}
+                  className="flex items-center gap-1 px-3 py-1.5 text-sm text-purple-600 hover:bg-purple-50 rounded-lg transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  CSV
+                </button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-3 px-2 font-semibold text-gray-600">#</th>
+                      <th className="text-left py-3 px-2 font-semibold text-gray-600">SKU</th>
+                      <th className="text-right py-3 px-2 font-semibold text-purple-600">Units</th>
+                      <th className="text-right py-3 px-2 font-semibold text-purple-600">Sales</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(data.top_skus_uk || fallbackData.top_skus_uk).slice(0, displayLimit).map((item) => (
+                      <tr key={item.sku} className="border-b border-gray-100 hover:bg-purple-50">
+                        <td className="py-2 px-2">
+                          <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${item.rank <= 3 ? 'bg-purple-100 text-purple-800' : 'bg-gray-100 text-gray-600'}`}>
+                            {item.rank}
+                          </span>
+                        </td>
+                        <td className="py-2 px-2 font-mono text-xs">{item.sku}</td>
+                        <td className="py-2 px-2 text-right font-semibold text-purple-600">{formatNumber(item.units)}</td>
+                        <td className="py-2 px-2 text-right font-semibold text-purple-700">£{formatNumber(item.sales)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-100">
+                <p className="text-xs text-gray-500">Showing top {Math.min(displayLimit, (data.top_skus_uk || fallbackData.top_skus_uk).length)} SKUs by units sold</p>
+              </div>
+            </div>
+
+            {/* US Top SKUs Table */}
+            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🇺🇸</span>
+                  <h3 className="text-lg font-semibold text-gray-800">US Top SKUs</h3>
+                </div>
+                <button
+                  onClick={() => exportToCSV(data.top_skus_us || fallbackData.top_skus_us, 'us_top_skus', ['rank', 'sku', 'units', 'sales'])}
+                  className="flex items-center gap-1 px-3 py-1.5 text-sm text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  CSV
+                </button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200">
+                      <th className="text-left py-3 px-2 font-semibold text-gray-600">#</th>
+                      <th className="text-left py-3 px-2 font-semibold text-gray-600">SKU</th>
+                      <th className="text-right py-3 px-2 font-semibold text-blue-600">Units</th>
+                      <th className="text-right py-3 px-2 font-semibold text-blue-600">Sales</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(data.top_skus_us || fallbackData.top_skus_us).slice(0, displayLimit).map((item) => (
+                      <tr key={item.sku} className="border-b border-gray-100 hover:bg-blue-50">
+                        <td className="py-2 px-2">
+                          <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${item.rank <= 3 ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-600'}`}>
+                            {item.rank}
+                          </span>
+                        </td>
+                        <td className="py-2 px-2 font-mono text-xs">{item.sku}</td>
+                        <td className="py-2 px-2 text-right font-semibold text-blue-600">{formatNumber(item.units)}</td>
+                        <td className="py-2 px-2 text-right font-semibold text-blue-700">${formatNumber(item.sales)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-4 pt-3 border-t border-gray-100">
+                <p className="text-xs text-gray-500">Showing top {Math.min(displayLimit, (data.top_skus_us || fallbackData.top_skus_us).length)} SKUs by units sold</p>
               </div>
             </div>
           </div>
