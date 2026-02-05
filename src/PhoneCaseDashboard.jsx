@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const COLORS = { UK: '#dc2626', US: '#2563eb', chart: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'] };
+const COLORS = { UK: '#7c3aed', US: '#2563eb', chart: ['#3b82f6', '#06b6d4', '#f59e0b', '#f97316', '#8b5cf6', '#ec4899', '#0ea5e9', '#a855f7'] };
 
 const PHONE_CASE_TYPES = ['HC', 'HTPCR', 'HB401', 'HLBWH', 'HB6CR', 'HB7BK', 'HHYBK', 'FHTPCR', 'FHC'];
 
@@ -153,8 +153,8 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                         </p>
                     </div>
                     <div className="flex gap-2">
-                        <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                            <span className="w-2 h-2 bg-red-500 rounded-full"></span> UK
+                        <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                            <span className="w-2 h-2 bg-purple-500 rounded-full"></span> UK
                         </div>
                         <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                             <span className="w-2 h-2 bg-blue-500 rounded-full"></span> US
@@ -165,9 +165,9 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                 {/* Summary Cards */}
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
                     <StatCard title="Total Units" value={formatNumber(data.summary.total_units)} subtitle="Phone Cases" color="#1f2937" />
-                    <StatCard title="UK Units" value={formatNumber(data.summary.uk_units)} subtitle={formatCurrency(data.summary.uk_sales, 'GBP')} color="#dc2626" />
+                    <StatCard title="UK Units" value={formatNumber(data.summary.uk_units)} subtitle={formatCurrency(data.summary.uk_sales, 'GBP')} color="#7c3aed" />
                     <StatCard title="US Units" value={formatNumber(data.summary.us_units)} subtitle={formatCurrency(data.summary.us_sales, 'USD')} color="#2563eb" />
-                    <StatCard title="UK Share" value={`${((data.summary.uk_units / data.summary.total_units) * 100).toFixed(1)}%`} subtitle="of total units" color="#dc2626" />
+                    <StatCard title="UK Share" value={`${((data.summary.uk_units / data.summary.total_units) * 100).toFixed(1)}%`} subtitle="of total units" color="#7c3aed" />
                     <StatCard title="US Share" value={`${((data.summary.us_units / data.summary.total_units) * 100).toFixed(1)}%`} subtitle="of total units" color="#2563eb" />
                     <StatCard title="Case Types" value="9" subtitle="Product types" color="#7c3aed" />
                 </div>
@@ -283,8 +283,8 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                                             <p className="font-bold text-gray-800">{formatNumber(item.total)}</p>
                                             <p className="text-xs text-gray-400">Total</p>
                                         </div>
-                                        <div className="bg-red-50 rounded p-2">
-                                            <p className="font-bold text-red-600">{formatNumber(item.UK)}</p>
+                                        <div className="bg-purple-50 rounded p-2">
+                                            <p className="font-bold text-purple-600">{formatNumber(item.UK)}</p>
                                             <p className="text-xs text-gray-400">UK</p>
                                         </div>
                                         <div className="bg-blue-50 rounded p-2">
@@ -314,8 +314,8 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                             </BarChart>
                         </ResponsiveContainer>
                         <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-                            <div className="bg-red-50 rounded-lg p-3">
-                                <p className="font-semibold text-red-800">🇬🇧 UK Top: IPH14 (292), IPH13 (265), IPH16 (240)</p>
+                            <div className="bg-purple-50 rounded-lg p-3">
+                                <p className="font-semibold text-purple-800">🇬🇧 UK Top: IPH14 (292), IPH13 (265), IPH16 (240)</p>
                             </div>
                             <div className="bg-blue-50 rounded-lg p-3">
                                 <p className="font-semibold text-blue-800">🇺🇸 US Top: IPH17PMAX (528), IPH16 (416), IPH17 (381)</p>
@@ -340,9 +340,9 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                             </BarChart>
                         </ResponsiveContainer>
                         <div className="mt-4 grid grid-cols-2 gap-4">
-                            <div className="bg-red-50 rounded-lg p-4">
-                                <h4 className="font-semibold text-red-800 mb-2">🇬🇧 UK Bestsellers</h4>
-                                <ul className="text-sm text-red-700 space-y-1">
+                            <div className="bg-purple-50 rounded-lg p-4">
+                                <h4 className="font-semibold text-purple-800 mb-2">🇬🇧 UK Bestsellers</h4>
+                                <ul className="text-sm text-purple-700 space-y-1">
                                     <li>• LFCKIT25 (283) - Liverpool FC Kit</li>
                                     <li>• AFCKIT25 (156) - Arsenal FC Kit</li>
                                     <li>• PNUTSNF (84) - Peanuts Snoopy</li>
@@ -370,7 +370,7 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                                     <tr className="border-b border-gray-200">
                                         <th className="text-left py-3 px-4 font-semibold text-gray-600">Rank</th>
                                         <th className="text-left py-3 px-4 font-semibold text-gray-600">SKU</th>
-                                        <th className="text-right py-3 px-4 font-semibold text-red-600">UK</th>
+                                        <th className="text-right py-3 px-4 font-semibold text-purple-600">UK</th>
                                         <th className="text-right py-3 px-4 font-semibold text-blue-600">US</th>
                                         <th className="text-right py-3 px-4 font-semibold text-gray-800">Total</th>
                                     </tr>
@@ -385,7 +385,7 @@ export default function PhoneCaseDashboard({ customData, dateRange = 'January 20
                                                 </span>
                                             </td>
                                             <td className="py-3 px-4 font-mono text-xs">{sku.sku}</td>
-                                            <td className="py-3 px-4 text-right font-semibold text-red-600">{formatNumber(sku.UK)}</td>
+                                            <td className="py-3 px-4 text-right font-semibold text-purple-600">{formatNumber(sku.UK)}</td>
                                             <td className="py-3 px-4 text-right font-semibold text-blue-600">{formatNumber(sku.US)}</td>
                                             <td className="py-3 px-4 text-right font-bold text-gray-800">{formatNumber(sku.total)}</td>
                                         </tr>

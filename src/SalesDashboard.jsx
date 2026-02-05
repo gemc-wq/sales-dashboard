@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
-const COLORS = { UK: '#dc2626', US: '#2563eb', chart: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#06b6d4', '#84cc16'] };
+const COLORS = { UK: '#7c3aed', US: '#2563eb', chart: ['#3b82f6', '#06b6d4', '#f59e0b', '#f97316', '#8b5cf6', '#ec4899', '#0ea5e9', '#a855f7'] };
 
 // Fallback data for local development
 const fallbackData = {
@@ -144,8 +144,8 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
             <p className="text-gray-500 mt-1">{dateRange} Performance Comparison</p>
           </div>
           <div className="flex gap-2">
-            <div className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-              <span className="w-2 h-2 bg-red-500 rounded-full"></span> UK
+            <div className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+              <span className="w-2 h-2 bg-purple-500 rounded-full"></span> UK
             </div>
             <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
               <span className="w-2 h-2 bg-blue-500 rounded-full"></span> US
@@ -156,7 +156,7 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
         {/* Summary Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
           <StatCard title="Total Units" value={formatNumber(data.summary.total_units)} subtitle="Combined" color="#1f2937" />
-          <StatCard title="UK Units" value={formatNumber(data.summary.uk_units)} subtitle="£112,409 sales" color="#dc2626" />
+          <StatCard title="UK Units" value={formatNumber(data.summary.uk_units)} subtitle="£112,409 sales" color="#7c3aed" />
           <StatCard title="US Units" value={formatNumber(data.summary.us_units)} subtitle="$212,030 sales" color="#2563eb" />
           <StatCard title="Active SKUs" value={formatNumber(data.summary.unique_skus)} subtitle="Products" color="#9333ea" />
           <StatCard title="Devices" value={formatNumber(data.summary.unique_devices)} subtitle="Supported" color="#ea580c" />
@@ -262,8 +262,8 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
               </BarChart>
             </ResponsiveContainer>
             <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-red-50 rounded-lg p-3">
-                <p className="font-semibold text-red-800">UK Top: HTPCR (2,050), HLBWH (1,301), HC (704)</p>
+              <div className="bg-purple-50 rounded-lg p-3">
+                <p className="font-semibold text-purple-800">UK Top: HTPCR (2,050), HLBWH (1,301), HC (704)</p>
               </div>
               <div className="bg-blue-50 rounded-lg p-3">
                 <p className="font-semibold text-blue-800">US Top: HTPCR (4,372), HC (1,028), HLBWH (1,000)</p>
@@ -288,8 +288,8 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
               </BarChart>
             </ResponsiveContainer>
             <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-red-50 rounded-lg p-3">
-                <p className="font-semibold text-red-800">UK Strongest: IPH14 (292), IPH13 (265), IPH16 (240), IPH15 (238)</p>
+              <div className="bg-purple-50 rounded-lg p-3">
+                <p className="font-semibold text-purple-800">UK Strongest: IPH14 (292), IPH13 (265), IPH16 (240), IPH15 (238)</p>
               </div>
               <div className="bg-blue-50 rounded-lg p-3">
                 <p className="font-semibold text-blue-800">US Strongest: IPH17PMAX (528), IPH16 (416), IPH17 (381), IPH15 (372)</p>
@@ -330,9 +330,9 @@ export default function SalesDashboard({ customData, dateRange = 'January 2026' 
               </ResponsiveContainer>
             </div>
             <div className="lg:col-span-2 grid grid-cols-2 gap-4">
-              <div className="bg-red-50 rounded-lg p-4">
-                <h4 className="font-semibold text-red-800 mb-2">🇬🇧 UK Top Designs</h4>
-                <ul className="text-sm text-red-700 space-y-1">
+              <div className="bg-purple-50 rounded-lg p-4">
+                <h4 className="font-semibold text-purple-800 mb-2">🇬🇧 UK Top Designs</h4>
+                <ul className="text-sm text-purple-700 space-y-1">
                   <li>• LFCKIT25 (283) - Liverpool FC Kit</li>
                   <li>• AFCKIT25 (156) - Arsenal FC Kit</li>
                   <li>• NCFCCKT-HOM (114) - Newcastle FC</li>
